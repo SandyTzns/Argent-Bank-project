@@ -144,9 +144,25 @@ paths:
                 items:
                   $ref: "#/definitions/ApiResponse"
         "400":
-          description: Invalid Fields
+          description: Invalid Fields - one or more fields are invalid or missing
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: Unauthorized - The Authentication token is missing or invalid
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: Forbidden - You do not have permission to access this resource
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: Not Found - The specified user ID, account type, or transaction ID does not exist
+          schema:
+            $ref: "#/definitions/ErrorResponse"
         "500":
           description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /user/{user_id}/accounts/{account_type}/transactions:
     get:
       security:
@@ -184,9 +200,25 @@ paths:
                 items:
                   $ref: "#/definitions/Transaction"
         "400":
-          description: Invalid Fields
+          description: Invalid Fields - one or more fields are invalid or missing
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: Unauthorized - The Authentication token is missing or invalid
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: Forbidden - You do not have permission to access this resource
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: Not Found - The specified user ID, account type, or transaction ID does not exist
+          schema:
+            $ref: "#/definitions/ErrorResponse"
         "500":
           description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
     post:
       security:
         - Bearer: []
@@ -224,9 +256,25 @@ paths:
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
-          description: Invalid Fields
+          description: Invalid Fields - one or more fields are invalid or missing
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: Unauthorized - The Authentication token is missing or invalid
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: Forbidden - You do not have permission to access this resource
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: Not Found - The specified user ID, account type, or transaction ID does not exist
+          schema:
+            $ref: "#/definitions/ErrorResponse"
         "500":
           description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /user/{user_id}/accounts/{account_type}/transactions/{transaction_id}:
     get:
       security:
@@ -264,9 +312,25 @@ paths:
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
-          description: Invalid Fields
+          description: Invalid Fields - one or more fields are invalid or missing
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: Unauthorized - The Authentication token is missing or invalid
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: Forbidden - You do not have permission to access this resource
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: Not Found - The specified user ID, account type, or transaction ID does not exist
+          schema:
+            $ref: "#/definitions/ErrorResponse"
         "500":
           description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
     put:
       security:
         - Bearer: []
@@ -309,9 +373,25 @@ paths:
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
-          description: Invalid Fields
+          description: Invalid Fields - One or more fields are invalid or missing
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: Unauthorized - The Authentication token is missing or invalid
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: Forbidden - You do not have permission to access this resource
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: Not Found - The specified user ID, account type, or transaction ID does not exist
+          schema:
+            $ref: "#/definitions/ErrorResponse"
         "500":
           description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
     delete:
       security:
         - Bearer: []
@@ -343,14 +423,30 @@ paths:
       produces:
         - application/json
       responses:
-        "200":
-          description: User profile retrieved successully
+        "204":
+          description: Transaction information deleted successully
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
-          description: Invalid Fields
+          description: Bad Request - Invalid or missing fields in the request
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: Unauthorized - The Authentication token is missing or invalid
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "403":
+          description: Forbidden - You do not have permission to access this resource
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "404":
+          description: Not Found - The specified user ID, account type, or transaction ID does not exist
+          schema:
+            $ref: "#/definitions/ErrorResponse"
         "500":
           description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -424,3 +520,18 @@ definitions:
         type: string
         format: date-time
         description: The date and time of the transaction
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: object
+        properties:
+          code:
+            type: string
+            description: Error code for the specific error
+          message:
+            type: string
+            description: Description of the error
+          details:
+            type: object
+            description: Additional details about the error (optional)
