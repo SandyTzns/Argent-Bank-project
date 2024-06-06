@@ -281,7 +281,7 @@ paths:
         - Bearer: []
       tags:
         - User Module
-      summary: Retrieve a list of the accounts of the user for the current month
+      summary: Retrieve a specific transaction for a user account
       description: API for fetching a specific transaction for a user account
       parameters:
         - in: path
